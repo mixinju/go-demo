@@ -11,4 +11,6 @@ func Auth(c *gin.Context) {
 	}
 
 	// 注册--> 通过 OpenID 置换userId
+	// 前后端交互使用userId 标识用户身份
+
 }

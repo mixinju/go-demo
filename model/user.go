@@ -8,5 +8,5 @@ type User struct {
 	Educations []Education // 教育经历 Education 组成的数组字符串
 	City       string      // 城市
 	Sex        bool        // 性别 true:男 false:女
-	LoveState  string      // 恋爱状态
+	LoveStatus string      // 恋爱状态
 }
