@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"net/http"
 	"os"
 	"time"
 )
 
 var logger *zap.Logger
 
-func init() {
+func initLog() {
 	// 采用默认zap提供的日志打印设置
 	encoderConfig := zap.NewProductionEncoderConfig()
 	// 设置日志记录中时间的格式
@@ -49,7 +51,26 @@ func main() {
 
 	// gin 使用 zap https://github.com/gin-contrib/zap
 
-	fmt.Println("hello")
+	r := gin.Default()
 
-	logger.Info("ff")
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
+	r.GET("/", func(c *gin.Context) {
+		name := c.Param("name")
+		fmt.Println(name)
+
+		ok := c.Param("content")
+
+		fmt.Println(ok)
+
+		c.JSON(http.StatusOK, gin.H{
+			"message": c.Request.RequestURI,
+		})
+	})
+
+	_ = r.Run()
 }
