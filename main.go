@@ -72,5 +72,14 @@ func main() {
 		})
 	})
 
+	r.GET("/search", func(c *gin.Context) {
+		time.Sleep(100)
+		fmt.Println("正在链接....")
+
+		c.JSON(http.StatusOK, gin.H{
+			"code": "ok",
+		})
+	})
+
 	_ = r.Run()
 }
