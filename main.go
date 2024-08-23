@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
+	"classmate_reunion/router"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"net/http"
 	"os"
 	"time"
 )
@@ -50,36 +48,5 @@ func initLog() {
 func main() {
 
 	// gin 使用 zap https://github.com/gin-contrib/zap
-
-	r := gin.Default()
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-
-	r.GET("/", func(c *gin.Context) {
-		name := c.Param("name")
-		fmt.Println(name)
-
-		ok := c.Param("content")
-
-		fmt.Println(ok)
-
-		c.JSON(http.StatusOK, gin.H{
-			"message": c.Request.RequestURI,
-		})
-	})
-
-	r.GET("/search", func(c *gin.Context) {
-		time.Sleep(100)
-		fmt.Println("正在链接....")
-
-		c.JSON(http.StatusOK, gin.H{
-			"code": "ok",
-		})
-	})
-
-	_ = r.Run()
+	router.Run()
 }
